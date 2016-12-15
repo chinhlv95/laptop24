@@ -1,0 +1,27 @@
+.navbar-nav>li {
+    float: left;
+    border-bottom: 1px dotted #CCC;
+}
+/*thongbao*/
+#tb{
+	position: relative;
+}
+#thongbao{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	color: red;
+	background: #FFFFFF;
+	z-index: 10000;
+	padding:0px 6px;
+	border-radius: 10px;
+	font-weight: bold;
+}
+.btn-group-xs>.btn, .btn-xs
+{
+	margin-right: 5px;
+}
+body{
+	background: #FFFFFF;
+	background-color: #FFFFFF;
+}

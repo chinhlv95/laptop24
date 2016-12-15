@@ -1,0 +1,33 @@
+#body-login{
+	background: url("img/banner.png");
+	background-size: 100%;
+}
+#login-backend input[type="text"],#login-backend input[type="password"]{
+	border-radius: 0px;
+
+	background: #FFFFFF;
+	border-color: #FFF !important;
+}
+#login-backend{
+	background: rgba(0,0,0,0.75);
+	padding: 0px 20px 10px  20px;
+	color: #FFFFFF;
+	border-radius: 10px;
+
+}
+ .btn-primary{
+	border-radius: 0px;
+	padding: 5px 20px;
+
+}
+#btn-login{
+	text-align: center;
+}
+#img-login{
+	margin-top: 5px;
+	width: 100px;
+	height: 100px;
+}
+#login-backend h1{
+	text-align: center;
+}
