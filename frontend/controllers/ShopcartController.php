@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+use yii;
 use frontend\models\Sanpham;
 use frontend\models\Thanhtoan;
 use frontend\models\Vanchuyen;
@@ -10,6 +11,8 @@ use frontend\models\Khachhang;
 use frontend\models\Diachigiaohang;
 use yii\web\Session;
 use yii\base\Request;
+use common\libs\sendmail;   
+use common\libs\checkmail;
 class ShopcartController extends \yii\web\Controller
 {
      public function beforeAction($action) {
@@ -91,6 +94,7 @@ class ShopcartController extends \yii\web\Controller
 
           ];
         }
+        
       }
       $session['cart']=$cart;
 
@@ -170,10 +174,70 @@ public function actionCheckout()
     $modeldiachi=new Diachigiaohang();
     $modelhoadon=new Hoadon();
     $modelkhach=new Khachhang();
+    $mail=new sendmail();
    
     $session = new Session;
     $login= $session['login'];
+    if(!$session['cart'])
+    {
+     echo "<script>alert('Giỏ hàng chưa có sản phẩm')</script>";
+    }
+    else
+    {
     $cart=$session['cart'];
+     
+    $content='
+    <table class="table table-bordered">
+
+      <thead class="active">
+          <th>STT</th>
+          <th>Tên sản phẩm</th>
+          <th>Ảnh sản phẩm</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Thành tiền</th>
+        
+      </thead>
+      <tbody>';
+
+                              
+                                   
+              $total=0;
+              $i=1;
+             foreach ($cart as $key => $value) {
+             
+            
+            $content.='<tr>
+                <td>'.$i.'</td>
+                <td><a href="">'. $value["sp"].'</a></td>
+                <td><img src="'. Yii::$app->getUrlManager()->getBaseUrl().'/'.$value["anh"].'" alt="" width="200px" height="100px"></td>
+                <td>'.number_format($value['gia']).'</td>
+                <td>
+                  '. $value['sl'].'
+                </td>
+                <td>'.number_format($value['sl']*$value['gia']*(1-($value['chietkhau'])/100))."(VNĐ)".'</td>
+              
+            </tr>';
+     
+
+            $total+=$value['sl']*$value['gia']*(1-($value['chietkhau'])/100);
+           $i++; }
+
+           $content.=' <tr>
+                <td></td>
+                <td colspan="3">
+                </td>
+                <td align="right">Tổng Tiền:</td>
+                <td>'. number_format($total)."(VNĐ)".'</td>
+                
+            </tr>
+        </tbody>
+    </table>';
+    
+
+
+   
+
   
 if(isset($_POST['thanhtoan']))
   {
@@ -233,8 +297,10 @@ if(isset($_POST['thanhtoan']))
         }
         }
       }
+  $mail->mail($emailn,"Đơn Hàng",$content);
+
         unset($session['cart']);
-       return $this->redirect(['./']);
+       return $this->render('thanhtoantc');
 
     }
     else
@@ -273,16 +339,20 @@ if(isset($_POST['thanhtoan']))
            $modelcthoadon->MaDonHang=$mahoadon;
             $modelcthoadon->ChietKhau=$value1['chietkhau'];
             $modelcthoadon->Gia=$value1['gia'];
-           $modelcthoadon->save(false);
+        $modelcthoadon->save(false);
+           
+             
+           
           }
           }
         }
          }
+         $mail->mail($emailn,"Đơn Hàng",$content);
          unset($session['cart']);
-       return $this->redirect(['./']);
+       return $this->render('thanhtoantc');
     }
   }
 }
 
-
+}
 }

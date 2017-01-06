@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use backend\widgets\orderday;
 use yii\web\Session;
+use   yii\helpers\Url;
 
 AppAsset::register($this);
 $Url = str_replace("/backend", "", Yii::$app->urlManager->baseUrl);
@@ -28,11 +29,10 @@ $session = new Session;
   <title><?= Html::encode($this->title) ?></title>
   <?php $this->head() ?>
 </head>
-<body>
-  <?php $this->beginBody() ?>
+<body onload="myFunction()">
 
-  <div class="wrap">
-    
+  <?php $this->beginBody() ?>
+ 
     <div id="wrapper">
 
       <!-- Navigation -->
@@ -48,7 +48,7 @@ $session = new Session;
           <a class="navbar-brand" href="<?= Yii::$app->homeUrl; ?>">Quản lý bán hàng</a>
         </div>
         <!-- Top Menu Items -->
-        <ul class="nav navbar-right top-nav">
+        <ul class="nav navbar-right top-nav" id="notification">
           
           <li id="tb">
             <div id="thongbao"><?=orderday::widget() ?></div>
@@ -273,8 +273,17 @@ $session = new Session;
   </div>
 </div> 
 </div>
+<script>
+var url="<?=Url::current()?>";
+function myFunction() {
+    setInterval(function(){
+      $("#thongbao").load(url+" #thongbao");
+     }, 5000);
+}
+</script>
 
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

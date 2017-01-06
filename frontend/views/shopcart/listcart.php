@@ -109,7 +109,6 @@ function updatecart(id){
   $("#gh").load(url1+"/shopcart/listcart #gh");
   $("#header").load(url1+"/shopcart/listcart #header");
   $("#giohangmua").load(url1+"/shopcart/listcart #giohangmua");
-
   $("#loader").fadeIn(1000);
 });
  }
