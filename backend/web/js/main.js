@@ -14,7 +14,8 @@ $(document).ready(function(){
     	});
     }
   });
-// 
+    
+
  $("#ImgNews").click(function(event){
       $("#modalnews").modal();
     });

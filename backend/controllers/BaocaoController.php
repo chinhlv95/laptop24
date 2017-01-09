@@ -40,7 +40,8 @@ class BaocaoController extends \yii\web\Controller
     		{
     		$doanhthu=$doanhthu->getbaocao($month,$year);	
     		}
-    		return json_encode( $doanhthu);
+    		 return json_encode( $doanhthu);
+           
            
 
     	}

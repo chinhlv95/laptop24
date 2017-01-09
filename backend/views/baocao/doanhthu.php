@@ -8,17 +8,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <div id="doanhthu">
 	<h3>Doanh thu bán sản phẩm</h3>
 
+      
 	Tháng: <input type="number" name="month" id="month"> Năm: <input type="number" name="year" id="year" > <a href="javascript:void(0)" onclick="doanhthu();"> In báo cáo</a>
 	<div id="report-doanhthu">
 		<br/>
-		<div class='table-responsive'><table class='table'><tr><td>STT</td><td>Mã Hóa đơn</td><td> Ngày đặt Hàng</td><td>Tiền đơn hàng</td> <td>Xem chi tiết đơn hàng</td></tr></table></div>
+		<div class='table-responsive'><table class='table' ><tr><td>STT</td><td>Mã Hóa đơn</td><td> Ngày đặt Hàng</td><td>Tiền đơn hàng</td> <td>Xem chi tiết đơn hàng</td></tr></table></div>
 	</div>
 </div>
-
+ 
 
 <script>
 	var date = new Date();
 	var url1="<?=Yii::$app->getUrlManager()->getBaseUrl()?>/";
+    var out="";
 	function doanhthu()
 	{
 		var months=$("#month").val();
@@ -40,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var data=jQuery.parseJSON(result);
             var i;
            var tongtien=0;
-            var out = "<br/><div class='table-responsive'><table class='table'><tr><td>STT</td><td>Mã Hóa Đơn</td><td>Ngày Đặt Hàng</td><td> Tiền đơn hàng </td> <td>Xem chi tiết đơn hàng</td></tr>";
+             out= "<br/><div class='table-responsive'><table class='table'  ><tr class='noExl'><th>STT</th><th>Mã Hóa Đơn</th><th>Ngày Đặt Hàng</th><th> Tiền đơn hàng </th> <th>Xem chi tiết đơn hàng</th></tr>";
 			    for(i =0; i<data.length; i++) {
                     tongtien+= parseInt(data[i].TongTien);
 			        out += "<tr><td>"+(i+1)+"</td><td>"+
@@ -89,3 +91,5 @@ function formatDate(date) {
 }
 
 	</script>
+
+
